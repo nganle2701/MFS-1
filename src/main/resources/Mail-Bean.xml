@@ -20,6 +20,8 @@
 		<property name="mailSender" ref="mailSender" />
 	</bean>
 	
+	
+	
 	<!-- <bean id="customeMailMessage"
 		class="org.springframework.mail.SimpleMailMessage">
 		<property name="from" value="vuminhvuongit2@gmail.com" />

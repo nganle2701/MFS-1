@@ -19,9 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.csc.mfs.messages.Message;
 import com.csc.mfs.model.*;
 import com.csc.mfs.repository.CategoryRepository;
@@ -130,18 +127,19 @@ public class FileUploadController {
 					}
 					Files fileDB = new Files();
 					fileDB.setName(file.getOriginalFilename());
-					fileDB.setName(file.getOriginalFilename());
 					fileDB.setSize((double) file.getSize() / 1024.0);
 					fileDB.setDateupload(new Date());
 					fileDB.setPath((file.getOriginalFilename()).toString() + (new Date()).getTime());
 					fileDB.setUserId(user);
 					fileDB.setSharing(1);
 					fileDB.setIdType(category);
+					fileDB.setActive(1);
 					fileDB.setDescription(description);
 					try{
 						storageService.store(file, Paths.get(fileDB.getPath()));
 						fileService.insertFile(fileDB);	
 					} catch(Exception e){
+						e.printStackTrace();
 						return ResponseEntity.ok().body(new Message(false, fileList[0].getOriginalFilename()));
 					}
 					fileService.afterUpload(user.getId(), file.getSize() / 1024.0);
